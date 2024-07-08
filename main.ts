@@ -16,18 +16,18 @@ export default function main() {
   // Possible frame variations for rules
   const variations: number = 50;
 
-  // const rule = new ruleCircular(200, canvasWidth, canvasHeight, 0.5);
-  // const rule = new ruleRandom();
-  const rule = new userRule();
+  // const rule = new ruleCircular(canvasWidth / 4, 0.2);
+  const rule = new ruleRandom();
+  // const rule = new userRule(5);
 
-  let counter: number = 1;
+  let counter: number = 0;
   setInterval(() => {
-    if (counter > variations) {
-      counter = 1;
+    if (counter >= 1) {
+      counter = 0;
     }
+    counter += 1 / variations;
     calculateAndDrawNextImage(data, canvasWidth, canvasHeight, rule, counter);
     ctx.putImageData(imageData, 0, 0);
-    counter++;
   }, interval);
 }
 

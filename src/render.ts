@@ -3,13 +3,12 @@ export { calculateAndDrawNextImage, fillCanvas };
 
 /**
  * Uses the given render rule to calculate and draw the next Image
- * This method is more optimized than calculateAndDrawNextGrid
  *
- * @param {*} ctx - Drawing context
+ * @param {Uint8ClampedArray} image_data - data array of imageData
  * @param {number} canvasWidth - Width of the canvas
  * @param {number} canvasHeight - Height of the canvas
  * @param {RenderRule} render_rule - Returns pixel colors depending on position
- * @param {counter} number - Can be used in rules to return a different color each frame
+ * @param {number} counter - Can be used in rules to make visuals dynamic
  */
 function calculateAndDrawNextImage(
   image_data: Uint8ClampedArray,
@@ -20,7 +19,13 @@ function calculateAndDrawNextImage(
 ) {
   for (let x = 0; x < canvasWidth; x++) {
     for (let y = 0; y < canvasHeight; y++) {
-      let color = render_rule.apply_rule(x, y, canvasWidth, canvasHeight, counter);
+      let color = render_rule.apply_rule(
+        x,
+        y,
+        canvasWidth,
+        canvasHeight,
+        counter
+      );
       setPixel(
         canvasWidth,
         image_data,
@@ -38,7 +43,6 @@ function calculateAndDrawNextImage(
 // Function to set pixel data
 function setPixel(
   canvas_width: number,
-  // canvas_height: number,
   image_data: Uint8ClampedArray,
   x: number,
   y: number,
@@ -54,17 +58,7 @@ function setPixel(
   image_data[index + 3] = a;
 }
 
-/**
- * Fills the whole canvas with a single color
- *
- * @param {number} x - x position (unused)
- * @param {number} y - y position (unused)
- * @param {number} r - red
- * @param {number} g - green
- * @param {number} b - blue
- * @param {number} a - alpha
- * @return {*} - Text representation of rgb to then convert into RGBColor
- */
+// Fills the whole canvas with a single color
 function fillCanvas(
   x: number,
   y: number,
