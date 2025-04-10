@@ -11,7 +11,7 @@ export default function main() {
   const imageData = ctx.createImageData(canvasWidth, canvasHeight);
   let data = imageData.data;
 
-  // Draw interval in miliseconds
+  // Draw interval in milliseconds
   const interval: number = 100;
   // Possible frame variations for rules
   const variations: number = 50;
@@ -19,9 +19,20 @@ export default function main() {
   // MODIFY THE RULE TO CHANGE THE VISUAL
   // const rule = new ruleCircular(canvasWidth / 4, 0.2);
   // const rule = new ruleRandom();
-  const rule = new userRule(5);
+  let rule = new userRule(0);
 
   let counter: number = 0;
+
+  // Reference the dropdown from the HTML
+  const dropdown = document.getElementById("ruleSelector") as HTMLSelectElement;
+
+  // Update the rule when the dropdown value changes
+  dropdown.addEventListener("change", (event) => {
+    const selectedIndex = parseInt((event.target as HTMLSelectElement).value, 10);
+    rule = new userRule(selectedIndex);
+  });
+
+  // Main rendering loop
   setInterval(() => {
     if (counter >= 1) {
       counter = 0;
