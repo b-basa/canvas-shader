@@ -96,6 +96,8 @@ class userRule implements RenderRule {
     canvasH: number,
     counter: number
   ): RGBColor {
+    let normX = (x - canvasW / 2) / (canvasW / 2);
+    let normY = (y - canvasH / 2) / (canvasH / 2);
     switch (this.selector) {
       case 0:
         // Static colors
@@ -104,7 +106,7 @@ class userRule implements RenderRule {
         // Static colors without borders
         return new RGBColor(x % (canvasW / 2), 100, y % (canvasW / 4));
       case 2:
-        // Dynamıc colors without borders
+        // Dynamic colors without borders
         return new RGBColor(
           x % (canvasW / 2),
           counter * (canvasW / 3),
@@ -118,8 +120,6 @@ class userRule implements RenderRule {
         return new RGBColor(0, 0, (x ^ y) % (canvasW / 4));
       case 5:
         // Normalization
-        let normX = (x - canvasW / 2) / (canvasW / 2);
-        let normY = (y - canvasH / 2) / (canvasH / 2);
         return new RGBColor(0, 0, Math.abs((normX + normY) / 2) * 255);
       default:
         return new RGBColor(0, 0, 0);

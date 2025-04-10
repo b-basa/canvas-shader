@@ -16,9 +16,10 @@ export default function main() {
   // Possible frame variations for rules
   const variations: number = 50;
 
+  // MODIFY THE RULE TO CHANGE THE VISUAL
   // const rule = new ruleCircular(canvasWidth / 4, 0.2);
-  const rule = new ruleRandom();
-  // const rule = new userRule(5);
+  // const rule = new ruleRandom();
+  const rule = new userRule(5);
 
   let counter: number = 0;
   setInterval(() => {
